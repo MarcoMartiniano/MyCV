@@ -8,96 +8,98 @@
 import SwiftUI
 
 struct HeaderView: View {
+
     let profile = Profile(
         name: name,
         jobTitle: jobTitle,
         birthDate: birthDate,
         nationality: nationality,
         jobExperience: jobExperience,
-        direction: direction,
+        direction: direction
     )
-    
+
+    private let icons = [
+        AppIcons.github,
+        AppIcons.apple,
+        AppIcons.android,
+        AppIcons.firebase
+    ]
+
     var body: some View {
-        ZStack(alignment: .top) {
-            VStack {
-                Spacer().frame(height: 60)
-                headerInfo
-                headerStack
-                headerFoot
-            }
-            .frame(maxWidth: .infinity)
-            .background(Color(AppColors.darkBlue))
-            .foregroundStyle(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 16))
-            
+        VStack(spacing: 0) {
+
             HeaderMyPhotoView()
-                .offset(y: -60)
+                .zIndex(1)
+
+            VStack(spacing: 12) {
+
+                VStack {
+                    Text(profile.name)
+                        .font(.typography(.titleLargeBold))
+
+                    Text(profile.jobTitle)
+                        .font(.typography(.titleSemiBold))
+                }
+
+                HStack(spacing: 20) {
+                    ForEach(icons, id: \.self) { icon in
+                        HeaderStackItemView(image: icon)
+                    }
+                }
+
+                VStack(spacing: 4) {
+
+                    HStack(spacing: 8) {
+                        Text("Geb. \(profile.birthDate)")
+                        Text("•")
+                        Text(profile.nationality)
+                        Text("•")
+                        Text("\(profile.jobExperience) Exp.")
+                    }
+                    .font(.typography(.bodyLight))
+
+                    Text(profile.direction)
+                        .font(.typography(.captionSemiBold))
+                }
+            }
+            .foregroundStyle(.white)
+            .padding(.top, 80)
+            .padding(.bottom)
+            .frame(maxWidth: .infinity)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color(AppColors.darkBlue))
+            )
+            .padding(.top, -70)
         }
     }
 }
 
 struct HeaderMyPhotoView: View {
+
     var body: some View {
         Image("myphoto")
             .resizable()
-            .scaledToFit()
+            .aspectRatio(contentMode: .fill)
             .frame(width: 120, height: 120)
             .clipShape(Circle())
-            .overlay(
+            .overlay {
                 Circle()
-                    .stroke(Color(AppColors.darkBlue), lineWidth: 1)
+                    .stroke(.white, lineWidth: 4)
+            }
+            .shadow(
+                color: .black.opacity(0.25),
+                radius: 10,
+                x: 0,
+                y: 5
             )
     }
 }
 
-extension HeaderView {
-    private var headerInfo: some View {
-        VStack(spacing: 2) {
-            Text(profile.name)
-                .font(.typography(.titleLargeBold))
-            Text(profile.jobTitle)
-                .font(.typography(.titleSemiBold))
-        }
-        .padding(.top, 8)
-    }
-
-    private var headerStack: some View {
-        let icons = [
-            AppIcons.github,
-            AppIcons.apple,
-            AppIcons.android,
-            AppIcons.firebase
-        ]
-
-        return HStack(spacing: 20) {
-            ForEach(icons.indices, id: \.self) { index in
-                HeaderStackItemView(image: icons[index])
-            }
-        }
-        .padding(.bottom, 10)
-    }
-
-    private var headerFoot: some View {
-        VStack(spacing: 2) {
-            HStack {
-                Text("Geb. \(profile.birthDate)")
-                Text("·")
-                Text(profile.nationality)
-                Text("·")
-                Text("\(profile.jobExperience) Exp.")
-            }
-            .font(.typography(.bodyLight))
-            
-            Text(profile.direction)
-                .font(.typography(.captionSemiBold))
-                
-        }.padding(.bottom, 12)
-    }
-}
-
 struct HeaderStackItemView: View {
-    var image: String
-    
+
+    let image: String
+
     var body: some View {
         Image(image)
             .resizable()
@@ -108,4 +110,5 @@ struct HeaderStackItemView: View {
 
 #Preview(traits: .sizeThatFitsLayout) {
     HeaderView()
+        .padding()
 }

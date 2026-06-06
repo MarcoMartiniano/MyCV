@@ -13,7 +13,6 @@ struct ContentView: View {
         VStack {
             
             HeaderView()
-                .padding(.top, 45)
             
             ScrollView {
                 

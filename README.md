@@ -36,20 +36,20 @@ The goal is to learn SwiftUI fundamentals and build a clean, modular app archite
 
 ## 🧱 Project Structure
 
-Models/
-Contact.swift
-Info.swift
-Profile.swift
+### Models
+- Contact.swift
+- Info.swift
+- Profile.swift
 
-Subviews/
-CallButtonView.swift
-ContactView.swift
-HeaderView.swift
-ItemListView.swift
-ItemView.swift
+### Subviews
+- CallButtonView.swift
+- ContactView.swift
+- HeaderView.swift
+- ItemListView.swift
+- ItemView.swift
 
-Views/
-ContentView.swift
+### Views
+- ContentView.swift
 
 ---
 
