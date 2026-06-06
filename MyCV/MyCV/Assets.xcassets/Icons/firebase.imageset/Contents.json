@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "logos_firebase-icon.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
